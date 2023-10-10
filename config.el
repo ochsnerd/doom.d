@@ -41,16 +41,16 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-(after! org
-  (setq org-roam-directory "~/org/roam/")
-  (setq org-roam-index-file "~/org/roam/index.org")
-  (org-roam-db-autosync-mode))
 
 (after! magit
   (setq magit-diff-hide-trailing-cr-characters t))
 
 (after! auth-source
   (setq auth-sources '("~/.authinfo")))
+
+(use-package! org-roam
+  :custom (org-roam-directory "~/org/roam")
+  :config (org-roam-db-autosync-mode))
 
 (use-package! mfgpt
     :load-path "~/mfgpt")
