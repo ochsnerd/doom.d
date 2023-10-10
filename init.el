@@ -1,4 +1,3 @@
-;; [[file:../emacs_init/configuration.org::*~init.el~][~init.el~:1]]
 ;;; init.el -*- lexical-binding: t; -*-
 
 ;; This file controls what Doom modules are enabled and what order they load

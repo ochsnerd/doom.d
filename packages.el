@@ -1,4 +1,3 @@
-;; [[file:../emacs_init/configuration.org::*~packages.el~][~packages.el~:1]]
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 

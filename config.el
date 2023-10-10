@@ -1,4 +1,3 @@
-;; [[file:../emacs_init/configuration.org::*~config.el~][~config.el~:1]]
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
