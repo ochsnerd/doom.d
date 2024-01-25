@@ -46,6 +46,9 @@
   :custom (org-roam-directory "~/org/roam")
   :config (org-roam-db-autosync-mode))
 
+(setq org-plantuml-exec-mode 'plantuml)
+(setq org-plantuml-executable-path "/usr/bin/plantuml")
+
 (after! magit
   (setq magit-diff-hide-trailing-cr-characters t))
 
@@ -75,7 +78,6 @@
   (call-process-shell-command (concat "black" " " (buffer-file-name))))
 
 (setq flycheck-checker-error-threshold 500)
-
 
 ;; Julia
 (setq lsp-julia-command "/home/david/.julia/julia-1.9.4/bin/julia")
