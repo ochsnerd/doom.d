@@ -55,8 +55,20 @@
 (use-package! mfgpt
     :load-path "~/mfgpt")
 
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+(after! copilot
+  (setq copilot-idle-delay 4))
+
 (global-set-key [remap evil-quit] 'kill-buffer)
 
+;; Attach this to python-mode?
 (defun my-black-buffer ()
   (interactive)
   (call-process-shell-command (concat "black" " " (buffer-file-name))))
