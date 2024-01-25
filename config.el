@@ -42,16 +42,17 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+(use-package! org-roam
+  :custom (org-roam-directory "~/org/roam")
+  :config (org-roam-db-autosync-mode))
+
 (after! magit
   (setq magit-diff-hide-trailing-cr-characters t))
 
 (after! auth-source
   (setq auth-sources '("~/.authinfo")))
 
-(use-package! org-roam
-  :custom (org-roam-directory "~/org/roam")
-  :config (org-roam-db-autosync-mode))
-
+;; outdated
 (use-package! mfgpt
     :load-path "~/mfgpt")
 
@@ -72,6 +73,20 @@
 (defun my-black-buffer ()
   (interactive)
   (call-process-shell-command (concat "black" " " (buffer-file-name))))
+
+(setq flycheck-checker-error-threshold 500)
+
+
+;; Julia
+(setq lsp-julia-command "/home/david/.julia/julia-1.9.4/bin/julia")
+
+(after! lsp-julia
+  (setq lsp-julia-default-environment "~/.julia/environments/v1.9"))
+
+(after! lsp-julia
+  (setq julia-repl-executable-records
+      '((default "/home/david/.julia/julia-1.9.4/bin/julia")
+        (LTS "/home/david/.julia/julia-1.9.4/bin/julia"))))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
