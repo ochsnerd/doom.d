@@ -72,6 +72,73 @@
 
 (global-set-key [remap evil-quit] 'kill-buffer)
 
+;; Presenting
+;;
+;; Load org-faces to make sure we can set appropriate faces
+(require 'org-faces)
+
+;; Resize Org headings
+(dolist (face '((org-level-1 . 1.2)
+               (org-level-2 . 1.1)
+               (org-level-3 . 1.05)
+               (org-level-4 . 1.0)
+               (org-level-5 . 1.1)
+               (org-level-6 . 1.1)
+               (org-level-7 . 1.1)
+               (org-level-8 . 1.1)))
+ (set-face-attribute (car face) nil :font doom-variable-pitch-font :weight 'medium :height (cdr face)))
+
+;; Make the document title a bit bigger
+(set-face-attribute 'org-document-title nil :font doom-variable-pitch-font :weight 'bold :height 1.3)
+
+;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+(setq visual-fill-column-width 110
+      visual-fill-column-center-text t)
+
+(defun my-org-present-start ()
+  ;; Adjust font sizes
+  ;; (doom-big-font-mode 1)
+  (setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
+                                     (header-line (:height 4) variable-pitch)
+                                     (org-document-title (:height 1.75) org-document-title)
+                                     (org-code (:height 1.45) org-code)
+                                     (org-verbatim (:height 1.45) org-verbatim)
+                                     (org-block (:height 1.25) org-block)
+                                     (org-block-begin-line (:height 0.7) org-block)))
+
+  (setq header-line-format " ")
+  (org-display-inline-images)
+  (setq org-hide-emphasis-markers t)
+  ;; Center the presentation and wrap lines
+  (visual-fill-column-mode 1)
+  (visual-line-mode 1)
+  (variable-pitch-mode 1))
+
+(defun my-org-present-end()
+  ;; Revert my-org-present-start
+  ;; (doom-big-font-mode 0)
+  ;; Doing it like this keeps the buffer in a variable-pitch font - I don't want that
+  ;; (setq-local face-remapping-alist '((default variable-pitch default)))
+  (setq-local face-remapping-alist nil)
+  (org-remove-inline-images)
+  (setq org-hide-emphasis-markers nil)
+  (setq header-line-format nil)
+  (visual-fill-column-mode 0)
+  (visual-line-mode 0)
+  (variable-pitch-mode 0))
+
+(add-hook 'org-present-mode-hook 'my-org-present-start)
+(add-hook 'org-present-mode-quit-hook 'my-org-present-end)
+
 ;; Attach this to python-mode?
 (defun my-black-buffer ()
   (interactive)
